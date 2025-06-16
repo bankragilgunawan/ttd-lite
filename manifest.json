@@ -1,0 +1,20 @@
+{
+  "name": "Prediksi Sicbo Pro",
+  "short_name": "Sicbo Pro",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#b22222",
+  "icons": [
+    {
+      "src": "https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/192812864385588038117.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/1524842677352575075013.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }
+  ]
+}
