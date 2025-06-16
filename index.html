@@ -1,1 +1,380 @@
-<\html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+  <!-- Ikon untuk Android home screen -->
+<link rel="icon" type="image/png" sizes="192x192" href="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/192812864385588038117.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/1524842677352575075013.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prediksi Sicbo Pro</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+    
+    .sinyal-info {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 12px;
+  color: #2e7d32;
+}
+.sinyal-auto {
+  background-color: #e0f7fa;
+  color: #00796b;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hasil-item.terbaru {
+  background: #c8e6c9;
+  border-left: 4px solid #4CAF50;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #43a047;
+      --bg: #eef1f4;
+      --card-bg: #ffffffcc;
+      --text: #333;
+      --radius: 14px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, .15);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e3f2fd 0%, #f0f2f5 40%, #ffffff 100%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 8px 0 16px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1em;
+      color: #777;
+      margin-top: -0.5px;
+      margin-bottom: 15px;
+      opacity: 0.5;
+    }
+
+    .app {
+      flex: 1;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      animation: fadeIn .6s ease both;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px 14px;
+      margin: 6px 0;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      outline: none;
+      transition: box-shadow .25s ease, transform .25s ease;
+    }
+
+    input:focus, select:focus {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+    }
+
+    button:active {
+      transform: scale(.97);
+    }
+
+    .hasil, .statistik, .total {
+      font-weight: 600;
+      text-align: center;
+    }
+
+    #riwayatHasil {
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .hasil-item {
+      padding: 6px 0;
+      border-bottom: 1px dashed #ccc;
+      animation: fadeSlide .5s ease both;
+    }
+
+    .yes { color: var(--primary-dark); }
+    .no { color: #e53935; }
+    .profit { color: var(--primary-dark); }
+    .loss { color: #e53935; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #riwayatHasil::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #riwayatHasil::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>Prediksi Sicbo Pro</h1>
+    <div class="subtitle">By : bankragilgunawan@gmail.com</div>
+   <div id="sinyal-otomatis" class="sinyal-auto"></div>
+          <div class="card">
+      <input id="angkaInput" type="number" maxlength="3" placeholder="Masukkan 3 angka (contoh: 123)" />
+      <select id="prediksiSelect">
+        <option value="besar">Besar</option>
+        <option value="kecil">Kecil</option>
+        <option value="ganjil">Ganjil</option>
+        <option value="genap">Genap</option>
+      </select>
+      <input id="investInput" type="number" placeholder="Investasi (default: 10000)" />
+      <button onclick="cekPrediksi()">Cek Prediksi</button>
+      <button onclick="resetData()" style="background:#e53935">🔄 Reset Data</button>
+    </div>
+
+    <div class="card hasil" id="hasilContainer">
+      <div id="hasilPrediksi"></div>
+      <!-- 🔍 Area Sinyal -->
+      <div id="sinyalArea" style="margin-top:8px; font-size:0.9em; color:#555;"></div>
+      <div id="riwayatHasil"></div>
+    </div>
+
+    <div class="card statistik" id="statistikContainer">
+      <div id="statistik"></div>
+      <div id="totalAkhir" style="margin-top:8px"></div>
+    </div>
+  </div>
+<div id="sinyal-otomatis"></div>
+
+  <img src="https://bankragilgunawan.wordpress.com/wp-content/uploads/2025/06/192812864385588038117.png" alt="Logo Sicbo Pro" style="display: block; margin: 20px auto; width: 120px; border-radius: 20px;">
+  
+<script>
+  const angkaInput = document.getElementById("angkaInput");
+  const prediksiSelect = document.getElementById("prediksiSelect");
+  const investInput = document.getElementById("investInput");
+  const hasilPrediksi = document.getElementById("hasilPrediksi");
+  const riwayatHasil = document.getElementById("riwayatHasil");
+  const statistik = document.getElementById("statistik");
+  const totalAkhir = document.getElementById("totalAkhir");
+  const sinyalArea = document.getElementById("sinyalArea");
+  const sinyalElement = document.getElementById("sinyal-otomatis");
+
+  let jumlahYes = 0, jumlahNo = 0, totalProfit = 0, totalLoss = 0;
+  let riwayat = [];
+
+  function formatRibuan(angka) {
+    return angka.toLocaleString("id-ID");
+  }
+
+  function simpanData() {
+    const data = { jumlahYes, jumlahNo, totalProfit, totalLoss, riwayat };
+    localStorage.setItem("sicboData", JSON.stringify(data));
+  }
+
+  function muatData() {
+    const data = JSON.parse(localStorage.getItem("sicboData"));
+    if (data) {
+      jumlahYes = data.jumlahYes || 0;
+      jumlahNo = data.jumlahNo || 0;
+      totalProfit = data.totalProfit || 0;
+      totalLoss = data.totalLoss || 0;
+      riwayat = data.riwayat || [];
+      tampilkanRiwayat();
+      updateStatistik();
+    }
+  }
+
+  function tampilkanRiwayat() {
+    riwayatHasil.innerHTML = riwayat.slice(0, 100).join('');
+  }
+
+  function updateStatistik() {
+    statistik.innerHTML = `✅ YES: ${jumlahYes} | ❌ NO: ${jumlahNo} <br>🪙 Profit: <span class="profit">${formatRibuan(totalProfit)}</span> | 🔻 Loss: <span class="loss">${formatRibuan(totalLoss)}</span>`;
+    const selisih = totalProfit - totalLoss;
+    if (selisih > 0) {
+      totalAkhir.innerHTML = `Total: <span class="profit">${formatRibuan(selisih)} Profit</span>`;
+    } else if (selisih < 0) {
+      totalAkhir.innerHTML = `Total: <span class="loss">${formatRibuan(Math.abs(selisih))} Loss</span>`;
+    } else {
+      totalAkhir.innerHTML = `Total: 0`;
+    }
+  }
+
+  function cekPrediksi() {
+    const angka = angkaInput.value.trim();
+    if (angka.length !== 3 || isNaN(angka)) {
+      alert("Masukkan 3 angka, contoh: 123");
+      return;
+    }
+
+    const a = parseInt(angka[0]), b = parseInt(angka[1]), c = parseInt(angka[2]);
+    const total = a + b + c;
+    const genap = total % 2 === 0;
+    const besar = total >= 11 && total <= 17;
+    const kecil = total >= 4 && total <= 10;
+
+    const jenis = prediksiSelect.value;
+    const investasi = parseInt(investInput.value) || 10000;
+    let kategori = "";
+
+    if (jenis === "besar") kategori = besar ? "YES" : "NO";
+    else if (jenis === "kecil") kategori = kecil ? "YES" : "NO";
+    else if (jenis === "ganjil") kategori = !genap ? "YES" : "NO";
+    else if (jenis === "genap") kategori = genap ? "YES" : "NO";
+
+    let nilai = 0, simbol = "";
+
+    if (kategori === "YES") {
+      nilai = Math.floor(investasi * 0.97);
+      jumlahYes++;
+      totalProfit += nilai;
+      simbol = "✅ YES 🪙 " + formatRibuan(nilai);
+    } else {
+      nilai = investasi;
+      jumlahNo++;
+      totalLoss += nilai;
+      simbol = "❌ NO 🔻 " + formatRibuan(nilai);
+    }
+
+    const tipeTotal = besar ? "Besar" : kecil ? "Kecil" : "Tripel";
+    const tipeGenap = genap ? "Genap" : "Ganjil";
+    const hasilText = `${angka} → ${total} = ${tipeTotal}, ${tipeGenap} <span class="${kategori === 'YES' ? 'yes' : 'no'}"> ${simbol}</span>`;
+
+    hasilPrediksi.innerHTML = hasilText;
+    riwayat.unshift(`<div class="hasil-item terbaru">${hasilText}</div>`);
+    tampilkanRiwayat();
+    updateStatistik();
+
+    let riwayatAngka = JSON.parse(localStorage.getItem("riwayatAngka")) || [];
+    riwayatAngka.push(angka);
+    localStorage.setItem("riwayatAngka", JSON.stringify(riwayatAngka));
+
+        sinyalOtomatis();
+    simpanData();
+  }
+
+  function autoSinyal() {
+    const riwayatAngka = JSON.parse(localStorage.getItem("riwayatAngka")) || [];
+
+    let sinyal = "";
+
+    if (riwayatAngka.length >= 2) {
+      const angka1 = riwayatAngka[riwayatAngka.length - 1];
+      const angka2 = riwayatAngka[riwayatAngka.length - 2];
+
+      const a1 = angka1.split("").map(Number);
+      const a2 = angka2.split("").map(Number);
+
+      const total1 = a1.reduce((a, b) => a + b, 0);
+      const total2 = a2.reduce((a, b) => a + b, 0);
+
+      const besar1 = total1 >= 11 && total1 <= 17;
+      const besar2 = total2 >= 11 && total2 <= 17;
+
+      const genap1 = total1 % 2 === 0;
+      const genap2 = total2 % 2 === 0;
+
+      if (besar1 && besar2) {
+        sinyal += "⚠️ Dua kali 'Besar' → Waspadai 'Kecil'<br>";
+      } else if (!besar1 && !besar2) {
+        sinyal += "⚠️ Dua kali 'Kecil' → Waspadai 'Besar'<br>";
+      }
+
+      if (genap1 && genap2) {
+        sinyal += "⚠️ Dua kali 'Genap' → Kemungkinan 'Ganjil'<br>";
+      } else if (!genap1 && !genap2) {
+        sinyal += "⚠️ Dua kali 'Ganjil' → Kemungkinan 'Genap'<br>";
+      }
+    }
+
+    sinyalArea.innerHTML = sinyal ? `📡 <b>${sinyal}</b>` : "";
+  }
+
+  function sinyalOtomatis() {
+    const riwayatAngka = JSON.parse(localStorage.getItem("riwayatAngka")) || [];
+    if (riwayatAngka.length < 1) {
+      sinyalElement.innerHTML = "";
+      return;
+    }
+
+    const lastAngka = riwayatAngka[riwayatAngka.length - 1];
+    const a = parseInt(lastAngka[0]), b = parseInt(lastAngka[1]), c = parseInt(lastAngka[2]);
+    const total = a + b + c;
+    const besar = total >= 11 && total <= 17;
+    const genap = total % 2 === 0;
+
+    let sinyal = "Kemungkinan: ";
+    sinyal += besar ? "BESAR" : "KECIL";
+    sinyal += " atau ";
+    sinyal += genap ? "GENAP" : "GANJIL";
+
+    sinyalElement.innerHTML = sinyal;
+  }
+
+  function resetData() {
+    if (confirm("Yakin ingin menghapus semua data?")) {
+      localStorage.removeItem("sicboData");
+      localStorage.removeItem("riwayatAngka");
+      jumlahYes = 0;
+      jumlahNo = 0;
+      totalProfit = 0;
+      totalLoss = 0;
+      riwayat = [];
+      hasilPrediksi.innerHTML = "";
+      tampilkanRiwayat();
+      updateStatistik();
+      sinyalArea.innerHTML = "";
+      sinyalElement.innerHTML = "";
+    }
+  }
+
+  muatData();
+  sinyalOtomatis();
+</script>  
+  </script></body>
+        </html>
